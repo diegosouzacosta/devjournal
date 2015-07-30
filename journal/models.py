@@ -7,10 +7,10 @@ from django.db import models
 class Organization(models.Model):
 
     github_id = models.IntegerField(verbose_name=u'ID GitHub', unique=True)
-    name = models.TextField()
+    name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    html_url = models.TextField(null=True, blank=True)
-    avatar_url = models.TextField(null=True, blank=True)
+    html_url = models.CharField(null=True, blank=True, max_length=200)
+    avatar_url = models.TextField(null=True, blank=True, max_length=200)
 
 
 class JournalUser(models.Model):
