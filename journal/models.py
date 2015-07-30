@@ -91,7 +91,7 @@ class Issue(models.Model):
 
 class Config(models.Model):
 
-    projects = models.ManyToManyField(Project, db_column=u'config_manager')
+    projects = models.ManyToManyField(Project, db_column=u'config_manager', related_name=u'configs')
     manager = models.ForeignKey(Manager)
     weekly = models.BooleanField(default=True)
     daily = models.BooleanField(default=True)
