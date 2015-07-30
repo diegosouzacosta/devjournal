@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'devjournal',
     'rest_framework',
+    'webhooks',
 )
 
 MIDDLEWARE_CLASSES = (
