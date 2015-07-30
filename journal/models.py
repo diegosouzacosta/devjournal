@@ -4,10 +4,20 @@
 from django.db import models
 
 
+class Organization(models.Model):
+
+    github_id = models.IntegerField(verbose_name=u'ID GitHub', unique=True)
+    name = models.TextField()
+    description = models.TextField(null=True, blank=True)
+    html_url = models.TextField(null=True, blank=True)
+    avatar_url = models.TextField(null=True, blank=True)
+
+
 class JournalUser(models.Model):
 
     name = models.CharField(unique=True, max_length=150)
     email = models.EmailField(unique=True)
+    organization = models.ForeignKey(Organization, related_name=u'%(app_label)s_%(class)s')
 
     class Meta:
         abstract = True
@@ -24,15 +34,6 @@ class Developer(JournalUser):
     github_login = models.CharField(verbose_name=u'Login GitHub', unique=True, max_length=100)
 
 
-class Organization(models.Model):
-
-    github_id = models.IntegerField(verbose_name=u'ID GitHub', unique=True)
-    name = models.TextField()
-    description = models.TextField(null=True, blank=True)
-    html_url = models.TextField(null=True, blank=True)
-    avatar_url = models.TextField(null=True, blank=True)
-
-
 class Project(models.Model):
 
     github_id = models.IntegerField(verbose_name=u'ID GitHub', unique=True)
@@ -41,6 +42,7 @@ class Project(models.Model):
     html_url = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField()
     creator = models.ForeignKey(Developer, related_name=u'projects')
+    organization = models.ForeignKey(Organization, related_name=u'projects')
 
 
 class Milestone(models.Model):
