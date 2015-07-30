@@ -1,15 +1,16 @@
 # -*- coding: utf8 -*-
 # vim: ts=4 sts=4 sw=4 et:
 
-from os import path
 import sys
+from os import path
 
 import dj_database_url
 from decouple import undefined, config as decouple
 
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+if sys.version[0] == '2':
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
 
 
 def megabytes(mb):
