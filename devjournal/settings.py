@@ -31,6 +31,8 @@ def config(key, default=undefined, cast=undefined):
 DEBUG = decouple('DEBUG', default=False, cast=one_or_true)
 SECRET_KEY = decouple('SECRET_KEY')
 
+VERSION = '0.0.1'
+
 ALLOWED_HOSTS = ['*']
 WSGI_APPLICATION = 'devjournal.wsgi.application'
 ROOT_URLCONF = 'devjournal.urls'
