@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Config',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('weekly', models.BooleanField(default=True)),
                 ('daily', models.BooleanField(default=True)),
             ],
@@ -21,12 +21,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Developer',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=150, unique=True)),
                 ('email', models.EmailField(max_length=254, unique=True)),
-                ('avatar_url', models.CharField(verbose_name='Avatar Url', max_length=200, unique=True, blank=True, null=True)),
+                ('avatar_url', models.CharField(max_length=200, blank=True, null=True, verbose_name='Avatar Url', unique=True)),
                 ('github_id', models.IntegerField(verbose_name='ID GitHub', unique=True)),
-                ('github_login', models.CharField(verbose_name='Login GitHub', max_length=100, unique=True)),
+                ('github_login', models.CharField(max_length=100, verbose_name='Login GitHub', unique=True)),
             ],
             options={
                 'abstract': False,
@@ -35,26 +35,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Issue',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('github_id', models.IntegerField(verbose_name='ID GitHub', unique=True)),
                 ('number', models.IntegerField(unique=True)),
                 ('state', models.CharField(max_length=15)),
                 ('title', models.CharField(max_length=200, blank=True, null=True)),
-                ('body', models.TextField(null=True, blank=True)),
-                ('html_url', models.TextField(null=True, blank=True)),
+                ('body', models.TextField(blank=True, null=True)),
+                ('html_url', models.TextField(blank=True, null=True)),
                 ('created_at', models.DateTimeField()),
-                ('close_at', models.DateTimeField(null=True, blank=True)),
+                ('close_at', models.DateTimeField(blank=True, null=True)),
                 ('update_at', models.DateTimeField()),
-                ('due_on', models.DateTimeField(null=True, blank=True)),
-                ('assignee', models.ForeignKey(to='journal.Developer', null=True, related_name='assignee_issues', blank=True)),
-                ('closed_by', models.ForeignKey(to='journal.Developer', null=True, related_name='closedby_issues', blank=True)),
+                ('due_on', models.DateTimeField(blank=True, null=True)),
+                ('assignee', models.ForeignKey(blank=True, related_name='assignee_issues', null=True, to='journal.Developer')),
+                ('closed_by', models.ForeignKey(blank=True, related_name='closedby_issues', null=True, to='journal.Developer')),
                 ('creator', models.ForeignKey(to='journal.Developer', related_name='creator_issues')),
             ],
         ),
         migrations.CreateModel(
             name='Label',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('name', models.TextField()),
                 ('color', models.CharField(max_length=10, blank=True, null=True)),
             ],
@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Manager',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=150, unique=True)),
                 ('email', models.EmailField(max_length=254, unique=True)),
             ],
@@ -73,41 +73,42 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Milestone',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('github_id', models.IntegerField(verbose_name='ID GitHub', unique=True)),
                 ('number', models.IntegerField(unique=True)),
                 ('state', models.CharField(max_length=15)),
                 ('title', models.CharField(max_length=200, blank=True, null=True)),
-                ('description', models.TextField(null=True, blank=True)),
-                ('html_url', models.TextField(null=True, blank=True)),
+                ('description', models.TextField(blank=True, null=True)),
+                ('html_url', models.TextField(blank=True, null=True)),
                 ('created_at', models.DateTimeField()),
-                ('close_at', models.DateTimeField(null=True, blank=True)),
+                ('close_at', models.DateTimeField(blank=True, null=True)),
                 ('update_at', models.DateTimeField()),
-                ('due_on', models.DateTimeField(null=True, blank=True)),
+                ('due_on', models.DateTimeField(blank=True, null=True)),
                 ('creator', models.ForeignKey(to='journal.Developer', related_name='creator_milestones')),
             ],
         ),
         migrations.CreateModel(
             name='Organization',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('github_id', models.IntegerField(verbose_name='ID GitHub', unique=True)),
                 ('name', models.TextField()),
-                ('description', models.TextField(null=True, blank=True)),
-                ('html_url', models.TextField(null=True, blank=True)),
-                ('avatar_url', models.TextField(null=True, blank=True)),
+                ('description', models.TextField(blank=True, null=True)),
+                ('html_url', models.TextField(blank=True, null=True)),
+                ('avatar_url', models.TextField(blank=True, null=True)),
             ],
         ),
         migrations.CreateModel(
             name='Project',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('github_id', models.IntegerField(verbose_name='ID GitHub', unique=True)),
                 ('name', models.TextField()),
-                ('description', models.TextField(null=True, blank=True)),
-                ('html_url', models.TextField(null=True, blank=True)),
+                ('description', models.TextField(blank=True, null=True)),
+                ('html_url', models.TextField(blank=True, null=True)),
                 ('created_at', models.DateTimeField()),
                 ('creator', models.ForeignKey(to='journal.Developer', related_name='projects')),
+                ('organization', models.ForeignKey(to='journal.Organization', related_name='projects')),
             ],
         ),
         migrations.AddField(
@@ -118,7 +119,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='milestone',
             name='sender',
-            field=models.ForeignKey(to='journal.Developer', null=True, related_name='sender_miletones', blank=True),
+            field=models.ForeignKey(blank=True, related_name='sender_miletones', null=True, to='journal.Developer'),
+        ),
+        migrations.AddField(
+            model_name='manager',
+            name='organization',
+            field=models.ForeignKey(to='journal.Organization', related_name='journal_manager'),
         ),
         migrations.AddField(
             model_name='issue',
@@ -138,7 +144,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='issue',
             name='sender',
-            field=models.ForeignKey(to='journal.Developer', null=True, related_name='sender_issues', blank=True),
+            field=models.ForeignKey(blank=True, related_name='sender_issues', null=True, to='journal.Developer'),
+        ),
+        migrations.AddField(
+            model_name='developer',
+            name='organization',
+            field=models.ForeignKey(to='journal.Organization', related_name='journal_developer'),
         ),
         migrations.AddField(
             model_name='config',
@@ -148,6 +159,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='config',
             name='projects',
-            field=models.ManyToManyField(to='journal.Project', db_column='config_manager'),
+            field=models.ManyToManyField(db_column='config_manager', to='journal.Project'),
         ),
     ]
