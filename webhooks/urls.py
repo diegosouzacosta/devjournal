@@ -13,10 +13,10 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
-from django.contrib import admin
+from django.conf.urls import url
+from webhooks import views
 
 urlpatterns = [
-    url(r'^webhooks/', include('webhooks.urls', namespace='webhooks')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^ping$', views.PingView.as_view(), name='ping'),
+    url(r'^$', views.ReceiveRequestsView.as_view(), name='receive'),
 ]

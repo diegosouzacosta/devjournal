@@ -35,7 +35,7 @@ SECRET_KEY = decouple('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
 WSGI_APPLICATION = 'devjournal.wsgi.application'
 ROOT_URLCONF = 'devjournal.urls'
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = 'en-US'
 TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_L10N = True
@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'devjournal',
     'rest_framework',
     'journal',
+    'webhooks',
 )
 
 MIDDLEWARE_CLASSES = (
