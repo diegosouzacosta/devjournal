@@ -12,3 +12,4 @@ psycopg2==2.6
 flake8==2.4.1
 pep8==1.6.2
 pyflakes==0.8.1
+bumpversion==0.5.3
