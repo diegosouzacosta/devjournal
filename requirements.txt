@@ -1,0 +1,14 @@
+Django==1.8.2
+djangorestframework==3.1
+
+# configuration
+python-decouple==2.3
+dj-database-url==0.3.0
+
+# databases
+psycopg2==2.6
+
+# code quality
+flake8==2.4.1
+pep8==1.6.2
+pyflakes==0.8.1
