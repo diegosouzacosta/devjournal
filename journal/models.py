@@ -2,7 +2,7 @@
 # vim: ts=4 sts=4 sw=4 et:
 
 from django.db import models
-
+from journal.managers import DeveloperManager
 
 class Organization(models.Model):
 
@@ -36,6 +36,7 @@ class Developer(JournalUser):
     avatar_url = models.CharField(verbose_name=u'Avatar Url', unique=True, max_length=200, null=True, blank=True)
     github_id = models.IntegerField(verbose_name=u'ID GitHub', unique=True)
     github_login = models.CharField(verbose_name=u'Login GitHub', unique=True, max_length=100)
+    objects = DeveloperManager()
 
 
 class Project(models.Model):
