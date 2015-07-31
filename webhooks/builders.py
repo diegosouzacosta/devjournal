@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from journal.models import Developer, Organization, Label, Project
+from journal.models import Developer, Organization, Label, Project, Milestone
 
 
 ISSUE = 'issue'
@@ -61,7 +61,7 @@ def organization_builder(json_object):
     )
 
 
-def project_builder(json_object):
+def project_builder(json_object, organization):
     github_id = json_object.get('id')
     project = Project.objects.filter(github_id=github_id).first()
 
@@ -72,6 +72,7 @@ def project_builder(json_object):
         project.html_url = json_object.get('url')
         project.created_at = json_object.get('created_at')
         project.creator = developer_builder(json_object.get('owner'))
+        project.organization = organization
         project.save()
         return project
 
@@ -81,7 +82,8 @@ def project_builder(json_object):
         description=json_object.get('description'),
         html_url=json_object.get('url'),
         created_at=json_object.get('created_at'),
-        creator=developer_builder(json_object.get('owner'))
+        creator=developer_builder(json_object.get('owner')),
+        organization=organization,
     )
 
 
@@ -90,10 +92,44 @@ def developer_builder(json_object):
         github_id=json_object['id'],
         defaults={
             'avatar_url': json_object['avatar_url'],
-            'github_login': json_object['github_login'],
+            'github_login': json_object['login'],
         }
     )
 
     if developer.avatar_url != json_object['avatar_url']:
         developer.avatar_url = json_object['avatar_url']
         developer.save()
+
+    return developer
+
+
+def milestone_builder(json_object, project):
+    creator = developer_builder(json_object['creator'])
+
+    milestone = Milestone.objects.filter(
+        github_id=json_object['id'],
+    ).last()
+
+    if not milestone:
+        return Milestone.objects.create(
+            github_id=json_object['id'],
+
+            number=json_object['number'],
+            state=json_object['state'],
+            title=json_object['title'],
+            description=json_object['description'],
+            html_url=json_object['html_url'],
+            sender=json_object['sender'],
+
+            create_at=json_object['create_at'],
+            closed_at=json_object['chosed_at'],
+            due_on=json_object['due_on'],
+            updated_at=json_object['updated_at'],
+
+            project=project,
+            creator=creator,
+        )
+
+    milestone.title
+    milestone.state
+    milestone.description
