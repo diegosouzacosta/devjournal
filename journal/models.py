@@ -55,12 +55,11 @@ class Milestone(models.Model):
     description = models.TextField(null=True, blank=True)
     html_url = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField()
-    close_at = models.DateTimeField(null=True, blank=True)
-    update_at = models.DateTimeField()
+    closed_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField()
     due_on = models.DateTimeField(null=True, blank=True)
     project = models.ForeignKey(Project, related_name=u'milestones')
     creator = models.ForeignKey(Developer, related_name=u'creator_milestones')
-    sender = models.ForeignKey(Developer, null=True, blank=True, related_name=u'sender_miletones')
 
 
 class Label(models.Model):
@@ -78,8 +77,8 @@ class Issue(models.Model):
     body = models.TextField(null=True, blank=True)
     html_url = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField()
-    close_at = models.DateTimeField(null=True, blank=True)
-    update_at = models.DateTimeField()
+    closed_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField()
     due_on = models.DateTimeField(null=True, blank=True)
     project = models.ForeignKey(Project, related_name=u'issues')
     milestone = models.ForeignKey(Milestone, related_name=u'issues')

@@ -1,12 +1,12 @@
 # Projeto
 media
 static_root
-data/
 runserver
 logfile*
 tracing.log*
 python.core
 *.sqlite3
+/data
 
 # top level must not have code
 /*.py
