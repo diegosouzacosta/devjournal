@@ -37,7 +37,7 @@ class DeveloperManager(models.Manager):
             'organization__projects__milestones__issues__title',
             'organization__projects__milestones__issues__label',
             'organization__projects__milestones__issues__sender',
-            'organization__projects__milestones__issues__updated_at',
+            'organization__projects__milestones__issues__update_at',
             'organization__projects__milestones__issues__state',
             'organization__projects__milestones__issues__number',
         )
