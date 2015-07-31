@@ -60,7 +60,6 @@ class Milestone(models.Model):
     due_on = models.DateTimeField(null=True, blank=True)
     project = models.ForeignKey(Project, related_name=u'milestones')
     creator = models.ForeignKey(Developer, related_name=u'creator_milestones')
-    sender = models.ForeignKey(Developer, null=True, blank=True, related_name=u'sender_miletones')
 
 
 class Label(models.Model):
