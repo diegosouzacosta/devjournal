@@ -2,10 +2,10 @@
 
 from django.conf.urls import patterns, url
 
-from journal.views import JournalViewSet
+from journal.views import JournalDailyViewSet
 
 
 urlpatterns = patterns(
     'journal.views',
-    url(r'^all/$', JournalViewSet.as_view()),
+    url(r'^daily/$', JournalDailyViewSet.as_view()),
 )

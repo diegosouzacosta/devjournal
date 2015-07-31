@@ -3,25 +3,23 @@
 
 from django.db import models
 
+from journal.managers import DeveloperManager
+
 
 class Organization(models.Model):
 
     github_id = models.IntegerField(verbose_name=u'ID GitHub', unique=True)
-    name = models.CharField(max_length=100)
+    name = models.TextField()
     description = models.TextField(null=True, blank=True)
-    html_url = models.CharField(null=True, blank=True, max_length=200)
-    avatar_url = models.TextField(null=True, blank=True, max_length=200)
+    html_url = models.TextField(null=True, blank=True)
+    avatar_url = models.TextField(null=True, blank=True)
 
 
 class JournalUser(models.Model):
 
     name = models.CharField(unique=True, max_length=150)
     email = models.EmailField(unique=True)
-    organization = models.ManyToManyField(
-        Organization,
-        related_name=u'%(app_label)s_%(class)s',
-        db_column=u'user_organization'
-    )
+    organization = models.ForeignKey(Organization, related_name=u'%(app_label)s_%(class)s')
 
     class Meta:
         abstract = True
@@ -36,6 +34,7 @@ class Developer(JournalUser):
     avatar_url = models.CharField(verbose_name=u'Avatar Url', unique=True, max_length=200, null=True, blank=True)
     github_id = models.IntegerField(verbose_name=u'ID GitHub', unique=True)
     github_login = models.CharField(verbose_name=u'Login GitHub', unique=True, max_length=100)
+    objects = DeveloperManager()
 
 
 class Project(models.Model):

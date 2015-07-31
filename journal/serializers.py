@@ -114,20 +114,22 @@ class ManagerSerializer(serializers.ModelSerializer):
 
 class OrganizationSerializer(serializers.ModelSerializer):
     '''
-    Serialize the model Organization
-    '''
+    Sejhrialize the model Organization
+    dkjfhadqq'''
+
+    projects = ProjectSerializer(many=True, read_only=True)
 
     class Meta:
         model = Organization
         fields = (
-                'github_id', 'name', 'description', 'html_url', 'avatar_url',
+                'github_id', 'name', 'description', 'html_url', 'avatar_url', 'projects',
         )
 
 
-class ProjectPagination(PageNumberPagination):
+class DeveloperPagination(PageNumberPagination):
     page_size = 5
     page_size_query_param = 'page_size'
     max_page_size = 10000000
 
     class Meta:
-        object_serializer_class = ProjectSerializer
+        object_serializer_class = DeveloperSerializer
