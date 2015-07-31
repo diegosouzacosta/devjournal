@@ -28,7 +28,7 @@ class IssueSerializer(serializers.ModelSerializer):
         model = Issue
         fields = (
                 'github_id', 'number', 'state', 'title', 'body', 'html_url', 'created_at',
-                'close_at', 'update_at', 'due_on', 'project', 'milestone', 'labels', 'creator',
+                'close_at', 'update_at', 'due_on', 'project', 'milestone', 'label', 'creator',
                 'sender', 'assignee', 'closed_by'
         )
 
@@ -68,47 +68,11 @@ class ProjectSerializer(serializers.ModelSerializer):
     '''
 
     milestones = MilestoneSerializer(many=True, read_only=True)
-    issues = IssueSerializer(many=True, read_only=True)
-    configs = ConfigSerializer(many=True, read_only=True)
 
     class Meta:
         model = Project
         fields = (
-                'id', 'github_id', 'name', 'description', 'html_url', 'created_at', 'milestones', 'issues', 'configs',
-        )
-
-
-class DeveloperSerializer(serializers.ModelSerializer):
-    '''
-    Serialize the model Developer
-    '''
-
-    projects = ProjectSerializer(many=True, read_only=True)
-    creator_milestones = MilestoneSerializer(many=True, read_only=True)
-    sender_milestones = MilestoneSerializer(many=True, read_only=True)
-    creator_issues = IssueSerializer(many=True, read_only=True)
-    sender_issues = IssueSerializer(many=True, read_only=True)
-    assignee_issues = IssueSerializer(many=True, read_only=True)
-    closedby_issues = IssueSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Developer
-        fields = (
-                 'avatar_url', 'projects',
-                 'creator_milestones', 'sender_milestones', 'creator_issues', 'sender_issues',
-                 'assignee_issues', 'closedby_issues',
-        )
-
-
-class ManagerSerializer(serializers.ModelSerializer):
-    '''
-    Serialize the model Manager
-    '''
-
-    class Meta:
-        model = Manager
-        fields = (
-                 'name', 'email',
+                'id', 'github_id', 'name', 'description', 'html_url', 'created_at', 'milestones',
         )
 
 
@@ -123,6 +87,33 @@ class OrganizationSerializer(serializers.ModelSerializer):
         model = Organization
         fields = (
                 'github_id', 'name', 'description', 'html_url', 'avatar_url', 'projects',
+        )
+
+
+class DeveloperSerializer(serializers.ModelSerializer):
+    '''
+    Serialize the model Developer
+    '''
+
+    configs = ConfigSerializer(many=True, read_only=True)
+    organization = OrganizationSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Developer
+        fields = (
+            'configs', 'avatar_url', 'github_login', 'github_id', 'organization',
+        )
+
+
+class ManagerSerializer(serializers.ModelSerializer):
+    '''
+    Serialize the model Manager
+    '''
+
+    class Meta:
+        model = Manager
+        fields = (
+                 'name', 'email',
         )
 
 
