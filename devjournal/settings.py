@@ -227,6 +227,8 @@ if DEBUG:
         'propagate': False,
     }
 
+API_SERVER = decouple('API_SERVER', default='http://localhost:8000')
+
 EMAIL_USE_TLS = decouple('EMAIL_USE_TLS')
 EMAIL_HOST = decouple('EMAIL_HOST')
 EMAIL_HOST_USER = decouple('EMAIL_HOST_USER')
