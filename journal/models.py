@@ -53,8 +53,8 @@ class Project(models.Model):
 
 class Milestone(models.Model):
 
-    github_id = models.IntegerField(verbose_name=u'ID GitHub', unique=True)
-    number = models.IntegerField(unique=True)
+    github_id = models.IntegerField(verbose_name=u'ID GitHub')
+    number = models.IntegerField()
     state = models.CharField(max_length=15)
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
