@@ -1,0 +1,59 @@
+[
+{
+    "pk": 1,
+    "model": "journal.milestone",
+    "fields": {
+        "update_at": "2015-07-30T08:45:38Z",
+        "state": "open",
+        "number": 1,
+        "title": "Criar relat\u00f3rio de campanha",
+        "sender": 1,
+        "close_at": null,
+        "creator": 1,
+        "description": "",
+        "html_url": "",
+        "project": 1,
+        "created_at": "2015-07-30T09:45:29Z",
+        "due_on": null,
+        "github_id": 2323
+    }
+},
+{
+    "pk": 2,
+    "model": "journal.milestone",
+    "fields": {
+        "update_at": "2015-07-31T04:46:22Z",
+        "state": "open",
+        "number": 1,
+        "title": "Relat\u00f3rio de Cota\u00e7\u00f5es",
+        "sender": 1,
+        "close_at": null,
+        "creator": 1,
+        "description": "",
+        "html_url": "",
+        "project": 1,
+        "created_at": "2015-07-30T09:45:13Z",
+        "due_on": null,
+        "github_id": 2323
+    }
+},
+{
+    "pk": 3,
+    "model": "journal.milestone",
+    "fields": {
+        "update_at": "2015-07-31T04:47:20Z",
+        "state": "open",
+        "number": 2,
+        "title": "Integra\u00e7\u00e3o Jaspion",
+        "sender": 1,
+        "close_at": null,
+        "creator": 2,
+        "description": "",
+        "html_url": "",
+        "project": 1,
+        "created_at": "2015-07-30T10:47:14Z",
+        "due_on": "2015-08-15T05:00:00Z",
+        "github_id": 2424
+    }
+}
+]
