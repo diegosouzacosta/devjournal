@@ -3,6 +3,7 @@
     "pk": 1,
     "fields": {
         "color": "#cccccc",
+        "project": 1,
         "name": "todo"
     },
     "model": "journal.label"
@@ -11,6 +12,7 @@
     "pk": 2,
     "fields": {
         "color": "#fc2929",
+        "project": 1,
         "name": "bug"
     },
     "model": "journal.label"
@@ -19,6 +21,7 @@
     "pk": 3,
     "fields": {
         "color": "#159818",
+        "project": 1,
         "name": "feature"
     },
     "model": "journal.label"
@@ -27,6 +30,7 @@
     "pk": 4,
     "fields": {
         "color": "#84b6eb",
+        "project": 1,
         "name": "in progress"
     },
     "model": "journal.label"
