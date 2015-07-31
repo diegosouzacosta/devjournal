@@ -1,7 +1,9 @@
+# coding: utf-8
+
 from django.test import TestCase
 
-from devjournal.models import Label
-from webhooks import label_builder
+from journal.models import Label
+from webhooks.builders import label_builder
 
 
 class LabelParserTestCase(TestCase):

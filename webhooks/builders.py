@@ -1,7 +1,6 @@
 # coding: utf-8
 
-from devjournal.models import Label
-from journal.models import Organization
+from journal.models import Organization, Label
 
 
 ISSUE = 'issue'
