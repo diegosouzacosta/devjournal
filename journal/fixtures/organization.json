@@ -1,0 +1,13 @@
+[
+{
+    "pk": 1,
+    "fields": {
+        "description": "",
+        "github_id": 5088696,
+        "avatar_url": "https://avatars.githubusercontent.com/u/5088696?v=3",
+        "html_url": "https://github.com/axado",
+        "name": "Axado"
+    },
+    "model": "journal.organization"
+}
+]

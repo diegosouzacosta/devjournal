@@ -28,15 +28,15 @@ def config(key, default=undefined, cast=undefined):
     return decouple(key, default=default, cast=cast)
 
 
-VERSION = '0.0.21'
 DEBUG = decouple('DEBUG', default=False, cast=one_or_true)
 SECRET_KEY = decouple('SECRET_KEY')
+
+VERSION = '0.0.1'
 
 ALLOWED_HOSTS = ['*']
 WSGI_APPLICATION = 'devjournal.wsgi.application'
 ROOT_URLCONF = 'devjournal.urls'
 LANGUAGE_CODE = 'en-US'
-TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True

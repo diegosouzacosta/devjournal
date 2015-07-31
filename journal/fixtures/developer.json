@@ -1,0 +1,72 @@
+[
+{
+    "model": "journal.developer",
+    "fields": {
+        "github_login": "hackaugusto",
+        "organization": [
+            1
+        ],
+        "github_id": 310139,
+        "name": "Augusto Hack",
+        "avatar_url": "https://avatars.githubusercontent.com/u/310139?v=3",
+        "email": "augusto@axado.com.br"
+    },
+    "pk": 1
+},
+{
+    "model": "journal.developer",
+    "fields": {
+        "github_login": "feliperuhland",
+        "organization": [
+            1
+        ],
+        "github_id": 1179500,
+        "name": "Ruhland",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1179500?v=3",
+        "email": "ruhland@axado.com.br"
+    },
+    "pk": 2
+},
+{
+    "model": "journal.developer",
+    "fields": {
+        "github_login": "orige",
+        "organization": [
+            1
+        ],
+        "github_id": 1215403,
+        "name": "Dudu",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1215403?v=3",
+        "email": "dudu@axado.com.br"
+    },
+    "pk": 3
+},
+{
+    "model": "journal.developer",
+    "fields": {
+        "github_login": "guilhermemaba",
+        "organization": [
+            1
+        ],
+        "github_id": 6231505,
+        "name": "Guilherme Maba",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6231505?v=3",
+        "email": "guilherme.maba@axado.com.br"
+    },
+    "pk": 4
+},
+{
+    "model": "journal.developer",
+    "fields": {
+        "github_login": "diegosouzacosta",
+        "organization": [
+            1
+        ],
+        "github_id": 1328799,
+        "name": "Diego Souza Costa",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1328799?v=3",
+        "email": "diego@axado.com.br"
+    },
+    "pk": 5
+}
+]

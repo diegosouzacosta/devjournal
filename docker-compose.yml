@@ -5,6 +5,8 @@ web:
   command: python manage.py runserver 0.0.0.0:8000
   volumes:
     - .:/code
+    - /tmp/devjournal:/var/log/devjournal
+    - /tmp/devjournal:/code/devjournal/log
   ports:
     - "8000:8000"
   links:
@@ -13,6 +15,3 @@ web:
     DEBUG: True
     SECRET_KEY: 12^2)(%r@_+gkx0!ok4p46wf5ly!ex)qpx#b%@@esxx-e)6vs1
     DATABASE_DEFAULT: postgres://postgres@db:5432/postgres
-  volumes:
-    - /tmp/devjournal:/var/log/devjournal
-    - /tmp/devjournal:/code/devjournal/log

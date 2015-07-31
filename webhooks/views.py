@@ -17,10 +17,5 @@ class ReceiveRequestsView(APIView):
     '''
     Endpoint to receive github requests.
     '''
-    def get(self, request, format=None):
-        return Response({}, status=status.HTTP_201_CREATED)
-
     def post(self, request, format=None):
-        print(1)
-        # TODO
         return Response({}, status=status.HTTP_201_CREATED)

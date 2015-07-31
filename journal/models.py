@@ -85,7 +85,7 @@ class Issue(models.Model):
     due_on = models.DateTimeField(null=True, blank=True)
     project = models.ForeignKey(Project, db_column='project_id', related_name=u'issues')
     milestone = models.ForeignKey(Milestone, db_column='milestone_id', related_name=u'issues')
-    labels = models.ForeignKey(Label, db_column='label_id', related_name=u'issues')
+    label = models.ForeignKey(Label, db_column='label_id', related_name=u'issues')
     creator = models.ForeignKey(Developer, related_name=u'creator_issues')
     sender = models.ForeignKey(Developer, null=True, blank=True, related_name='sender_issues')
     assignee = models.ForeignKey(Developer, null=True, blank=True, related_name=u'assignee_issues')
