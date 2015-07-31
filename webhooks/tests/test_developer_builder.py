@@ -17,7 +17,7 @@ class DeveloperBuilderTestCase(TestCase):
         created = developer_builder({
             'id': count + 1,
             'avatar_url': '',
-            'github_login': create_login,
+            'login': create_login,
             'name': create_name,
             'email': create_email,
         })
@@ -27,7 +27,7 @@ class DeveloperBuilderTestCase(TestCase):
         same = developer_builder({
             'id': count + 1,
             'avatar_url': '',
-            'github_login': create_login,
+            'login': create_login,
             'name': create_name,
             'email': create_email,
         })
@@ -39,7 +39,7 @@ class DeveloperBuilderTestCase(TestCase):
             developer_builder({
                 'id': count + 2,
                 'avatar_url': '',
-                'github_login': create_login,  # same login
+                'login': create_login,  # same login
                 'name': create_name,
                 'email': create_email,
             })
