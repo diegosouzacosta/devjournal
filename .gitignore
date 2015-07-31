@@ -1,7 +1,6 @@
 # Projeto
 media
 static_root
-data/
 runserver
 logfile*
 tracing.log*
