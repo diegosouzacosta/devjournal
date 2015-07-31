@@ -19,7 +19,7 @@
         </td>
 
         <!-- start of: Container Projects -->
-        {% for project in user.organization.0.projects %}
+        {% for project in user.projects %}
           <td>
             <!-- start of: Project -->
             <table style="margin: 0; padding-left: 15px; border-left: 1px solid #ccc; padding-bottom: 20px;">
@@ -28,7 +28,7 @@
                   <h1 style="margin: 0; border-bottom: 1px solid #D5D5D5;">
                     <table>
                       <tr>
-                        <td><img src="./github-icon-repo.png" width="25" height="25" style="margin: 0; padding-top: 11px;"/></td>
+                        <td><img src="https://s3-sa-east-1.amazonaws.com/static.axado.com.br/devjournal/github-icon-repo.png" width="25" height="25" style="margin: 0; padding-top: 11px;"/></td>
                         <td style="font-family: Georgia, Arial; font-size: 25px;">{{ project.name }}</td>
                       </tr>
                     </table>
@@ -43,11 +43,17 @@
                     <h4 style="margin: 0; padding-left: 5px;">
                       <table>
                         <tr>
-                          <td><img src="./github-icon-milestone.png" width="16" height="16" style="margin: 0;"/></td>
-                          <td width="300">{{ milestone.title }}</td>
+                          <td><img src="https://s3-sa-east-1.amazonaws.com/static.axado.com.br/devjournal/github-icon-milestone.png" width="16" height="16" style="margin: 0;"/></td>
+                          <td style="font-family: Georgia, Arial" width="300">{{ milestone.title }}</td>
 
-                          <td style="text-align: right; font-size: 12px;" width="70"><span style="color: red;">40</span>/<span style="color: green;">100</span></td>
-                          <td style="text-align: right; font-size: 13px;" width="70">{{ milestone.due_on|date:"d/m/Y" }}</td>
+                          <td style="text-align: right; font-size: 12px;" width="70"></td>
+                          <td style="text-align: right; font-size: 13px;" width="70">
+                            {% if milestone.due_on %}
+                              {{ milestone.due_on|date:"d/m/Y" }}
+                            {% else %}
+                              -
+                            {% endif %}
+                          </td>
                         </tr>
                       </table>
                     </h4>
@@ -61,7 +67,7 @@
                       <!-- start of: Issue -->
                       {% for issue in milestone.issues %}
                         <tr>
-                          <td style="color: #FFF; font-family: Georgia, Arial; font-size: 9px; font-weight: bold; text-align: center; background-color: #207de5; padding: 4px;">{{ issue.label }}</td>
+                          <td style="color: #FFF; font-family: Georgia, Arial; font-size: 9px; font-weight: bold; text-align: center; background-color: {{ issue.label_color }}; padding: 4px;">{{ issue.label_name }}</td>
                           <td style="font-family: Georgia, Arial; font-size: 14px; padding-left: 5px;" width="350">{{ issue.title }}</td>
                           <td><a href="{{ issue.html_url }}" style="color: #4078C0; text-decoration: none; font-family: Georgia, Arial">#{{ issue.number }}</a></td>
                         </tr>
