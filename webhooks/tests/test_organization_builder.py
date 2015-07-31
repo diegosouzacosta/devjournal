@@ -12,7 +12,7 @@ class OrganizationBuilderTestCase(TestCase):
 
         organization_json = {
             "login": "github",
-            "id": 1,
+            "id": 2,
             "url": "https://api.github.com/orgs/github",
             "avatar_url": "https://github.com/images/error/octocat_happy.gif",
             "description": "A great organization"
@@ -31,7 +31,7 @@ class OrganizationBuilderTestCase(TestCase):
 
         organization_json = {
             "login": "github",
-            "id": 1,
+            "id": 3,
             "url": "https://api.github.com/orgs/github",
             "avatar_url": "https://github.com/images/error/octocat_happy.gif",
             "description": "A great organization"
@@ -54,7 +54,7 @@ class OrganizationBuilderTestCase(TestCase):
 
         organization_json = {
             "login": "github",
-            "id": 1,
+            "id": 4,
             "url": "https://api.github.com/orgs/github",
             "avatar_url": "https://github.com/images/error/octocat_happy.gif",
             "description": "A great organization"
