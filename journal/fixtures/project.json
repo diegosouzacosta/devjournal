@@ -1,0 +1,15 @@
+[
+{
+    "fields": {
+        "github_id": 22222,
+        "organization": 1,
+        "html_url": "https://github.com/axado/devjournal",
+        "name": "devjournal",
+        "created_at": "2015-07-30T21:49:34Z",
+        "description": "",
+        "creator": 1
+    },
+    "pk": 1,
+    "model": "journal.project"
+}
+]

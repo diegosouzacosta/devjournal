@@ -1,0 +1,24 @@
+[
+{
+    "model": "journal.manager",
+    "pk": 1,
+    "fields": {
+        "name": "Augusto Hack",
+        "organization": [
+            1
+        ],
+        "email": "augusto@axado.com.br"
+    }
+},
+{
+    "model": "journal.manager",
+    "pk": 2,
+    "fields": {
+        "name": "Bono Vox",
+        "organization": [
+            1
+        ],
+        "email": "shipitday@axado.com.br"
+    }
+}
+]

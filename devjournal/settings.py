@@ -96,6 +96,13 @@ DATABASES = {
     'default': dj_database_url.config(default=decouple('DATABASE_DEFAULT')),
 }
 
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--with-spec',
+    '--spec-color',
+    '--with-coverage',
+]
+
 if DEBUG:
     LOG_DIR = path.dirname(path.abspath(__file__)) + '/log/'
 else:
