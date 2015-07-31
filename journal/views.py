@@ -7,9 +7,9 @@ import dateutil.parser
 from datetime import datetime, timedelta
 from rest_framework import generics
 
-from journal.models import Developer
-from journal.serializers import DeveloperSerializer
-from journal.serializers import DeveloperPagination
+from journal.models import Developer, Project
+from journal.serializers import DeveloperSerializer, ProjectWeeklySerializer
+from journal.serializers import DeveloperPagination, ProjectWeeklyPagination
 
 
 log = logging.getLogger(__name__)
@@ -36,7 +36,7 @@ def get_date_start_end(params):
 
 class JournalDailyViewSet(generics.ListAPIView):
     '''
-    - View that returns the query to the model Projec. Send in JSON format
+    - View that returns the query to the model Developer. Send in JSON format
     '''
     # disable interface of django-rest-framework
     # renderer_classes = [renderers.JSONRenderer]
@@ -53,3 +53,24 @@ class JournalDailyViewSet(generics.ListAPIView):
         date_start, date_end = get_date_start_end(self.request.query_params)
         organization = self.request.query_params.get('organization', None)
         return Developer.objects.get_values_daily(date_start, date_end, organization)
+
+
+class JournalWeeklyViewSet(generics.ListAPIView):
+    '''
+    - View that returns the query to the model Project. Send in JSON format
+    '''
+    # disable interface of django-rest-framework
+    # renderer_classes = [renderers.JSONRenderer]
+
+    queryset = Project.objects.all()
+    serializer_class = ProjectWeeklySerializer
+    pagination_class = ProjectWeeklyPagination
+    model = Project
+
+    def get_queryset(self):
+        '''
+        Filter values for the url
+        '''
+        date_start, date_end = get_date_start_end(self.request.query_params)
+        organization = self.request.query_params.get('organization', None)
+        return Project.objects.get_values_weekly(date_start, date_end, organization)

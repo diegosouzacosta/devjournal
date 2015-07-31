@@ -2,7 +2,7 @@
 # vim: ts=4 sts=4 sw=4 et:
 
 from django.db import models
-from journal.managers import DeveloperManager
+from journal.managers import DeveloperManager, ProjectManager
 
 
 class Organization(models.Model):
@@ -45,6 +45,7 @@ class Project(models.Model):
     created_at = models.DateTimeField()
     creator = models.ForeignKey(Developer, related_name=u'projects')
     organization = models.ForeignKey(Organization, related_name=u'projects')
+    objects = ProjectManager()
 
 
 class Milestone(models.Model):

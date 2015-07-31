@@ -1,4 +1,4 @@
-# -*- coding: utf-7 -*-
+# -*- coding: utf-8 -*-
 # vim: ts=4 sts=4 sw=4 et:
 
 from rest_framework import serializers
@@ -53,7 +53,7 @@ class MilestoneSerializer(serializers.ModelSerializer):
     Serialize the model Milestone
     '''
 
-    issues = IssueSerializer(many=True, read_only=True)
+    issues = serializers.SerializerMethodField('get_issue')
 
     class Meta:
         model = Milestone
@@ -61,6 +61,11 @@ class MilestoneSerializer(serializers.ModelSerializer):
             'github_id', 'number', 'state', 'title', 'description', 'html_url', 'created_at',
             'closed_at', 'updated_at', 'due_on', 'project', 'creator', 'issues',
         )
+
+    def get_issue(self, milestone):
+        issues = milestone.issues.filter(sender=milestone.developer_id).distinct('github_id')
+        serializer = IssueSerializer(instance=issues, many=True)
+        return serializer.data
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -77,9 +82,26 @@ class ProjectSerializer(serializers.ModelSerializer):
         )
 
     def get_milestone(self, project):
-        milestones = Milestone.objects.filter(issues__sender=project.developer_id)
+        milestones = Milestone.objects.filter(
+            issues__sender=project.developer_id).distinct('github_id').extra(
+            select={'developer_id': project.developer_id}
+        )
         serializer = MilestoneSerializer(instance=milestones, many=True)
         return serializer.data
+
+
+class ProjectWeeklySerializer(serializers.ModelSerializer):
+    '''
+    Serialize the model Projects
+    '''
+
+    milestones = MilestoneSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Project
+        fields = (
+            'id', 'github_id', 'name', 'description', 'html_url', 'created_at', 'milestones',
+        )
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
@@ -94,6 +116,12 @@ class OrganizationSerializer(serializers.ModelSerializer):
         fields = (
             'github_id', 'name', 'description', 'html_url', 'avatar_url', 'projects',
         )
+
+    def get_project(self, organization):
+        organizations = organization.projects.distinct('github_id')
+        serializer = ProjectSerializer(instance=organizations, many=True)
+        return serializer.data
+
 
 
 class DeveloperSerializer(serializers.ModelSerializer):
@@ -123,7 +151,7 @@ class DeveloperSerializer(serializers.ModelSerializer):
     def get_project(self, developer):
         projects = Project.objects.filter(
             milestones__in=self.get_milestone(developer)).extra(
-            select={'developer_id': developer.pk})
+            select={'developer_id': developer.pk}).distinct('github_id')
         serializer = ProjectSerializer(instance=projects, many=True)
         return serializer.data
 
@@ -141,9 +169,18 @@ class ManagerSerializer(serializers.ModelSerializer):
 
 
 class DeveloperPagination(PageNumberPagination):
-    page_size = 5
+    page_size = 30
     page_size_query_param = 'page_size'
     max_page_size = 10000000
 
     class Meta:
         object_serializer_class = DeveloperSerializer
+
+
+class ProjectWeeklyPagination(PageNumberPagination):
+    page_size =30
+    page_size_query_param = 'page_size'
+    max_page_size = 10000000
+
+    class Meta:
+        object_serializer_class = ProjectWeeklySerializer
