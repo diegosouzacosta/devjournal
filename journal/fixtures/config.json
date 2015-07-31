@@ -1,0 +1,26 @@
+[
+{
+    "model": "journal.config",
+    "pk": 1,
+    "fields": {
+        "daily": true,
+        "weekly": true,
+        "projects": [
+            1
+        ],
+        "manager": 1
+    }
+},
+{
+    "model": "journal.config",
+    "pk": 2,
+    "fields": {
+        "daily": true,
+        "weekly": true,
+        "projects": [
+            1
+        ],
+        "manager": 2
+    }
+}
+]
