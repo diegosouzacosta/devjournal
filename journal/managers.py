@@ -25,20 +25,4 @@ class DeveloperManager(models.Manager):
         return self.get_queryset().filter(
             organization__projects__milestones__issues__update_at__range=[date_start, date_end],
             organization=organization,
-        ).values(
-            'organization__name',
-            'organization__html_url',
-            'organization__projects__name',
-            'organization__projects__html_url',
-            'organization__projects__milestones__title',
-            'organization__projects__milestones__state',
-            'organization__projects__milestones__html_url',
-            'organization__projects__milestones__due_on',
-            'organization__projects__milestones__issues__title',
-            'organization__projects__milestones__issues__label',
-            'organization__projects__milestones__issues__sender',
-            'organization__projects__milestones__issues__update_at',
-            'organization__projects__milestones__issues__state',
-            'organization__projects__milestones__issues__number',
         )
-
