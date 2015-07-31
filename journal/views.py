@@ -4,7 +4,7 @@
 import logging
 
 import dateutil.parser
-from datetime import datetime
+from datetime import datetime, timedelta
 from rest_framework import generics
 
 from journal.models import Developer
@@ -23,13 +23,13 @@ def get_date_start_end(params):
     if date_start:
         date_start = dateutil.parser.parse(date_start)
     else:
-        date_start = datetime.now()
+        date_start = datetime.today()
 
     date_end = params.get('date-end', None)
     if date_end:
-        date_end = dateutil.parser.parse(date_end)
+        date_end = dateutil.parser.parse(date_end) + timedelta(1)
     else:
-        date_end = datetime.now()
+        date_end = datetime.today() + timedelta(1)
 
     return date_start, date_end
 
