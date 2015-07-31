@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from journal.models import Developer, Organization, Label
+from journal.models import Developer, Organization, Label, Project
 
 
 ISSUE = 'issue'
@@ -63,23 +63,25 @@ def organization_builder(json_object):
 
 def project_builder(json_object):
     github_id = json_object.get('id')
-    project = Organization.objects.filter(github_id=github_id).first()
+    project = Project.objects.filter(github_id=github_id).first()
 
     if project:
         project.github_id = json_object.get('id')
-        project.name = json_object.get('login')
+        project.name = json_object.get('name')
         project.description = json_object.get('description')
         project.html_url = json_object.get('url')
-        project.avatar_url = json_object.get('avatar_url')
+        project.created_at = json_object.get('created_at')
+        project.creator = developer_builder(json_object.get('owner'))
         project.save()
         return project
 
-    return Organization.objects.create(
+    return Project.objects.create(
         github_id=json_object.get('id'),
-        name=json_object.get('login'),
+        name=json_object.get('name'),
         description=json_object.get('description'),
         html_url=json_object.get('url'),
-        avatar_url=json_object.get('avatar_url')
+        created_at=json_object.get('created_at'),
+        creator=developer_builder(json_object.get('owner'))
     )
 
 
