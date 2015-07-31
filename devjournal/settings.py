@@ -97,10 +97,6 @@ NOSE_ARGS = [
     '--with-spec',
     '--spec-color',
     '--with-coverage',
-    '--cover-erase',
-    '--cover-html',
-    '--cover-branches',
-    '--cover-package=web,payment,new_user',
 ]
 
 if DEBUG:
