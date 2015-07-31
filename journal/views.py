@@ -52,4 +52,7 @@ class JournalDailyViewSet(generics.ListAPIView):
         '''
         date_start, date_end = get_date_start_end(self.request.query_params)
         organization = self.request.query_params.get('organization', None)
-        return Developer.objects.get_values(date_start, date_end, organization)
+        data = Developer.objects.get_values_daily(date_start, date_end, organization)
+        print ('@----------------@')
+        print (data.values_list())
+        return data

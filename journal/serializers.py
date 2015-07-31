@@ -27,9 +27,9 @@ class IssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issue
         fields = (
-                'github_id', 'number', 'state', 'title', 'body', 'html_url', 'created_at',
-                'close_at', 'update_at', 'due_on', 'project', 'milestone', 'label', 'creator',
-                'sender', 'assignee', 'closed_by'
+            'github_id', 'number', 'state', 'title', 'body', 'html_url', 'created_at', 'close_at', 'update_at',
+            'due_on', 'project', 'milestone', 'label', 'creator', 'sender', 'assignee',
+            'closed_by'
         )
 
 
@@ -38,12 +38,10 @@ class LabelSerializer(serializers.ModelSerializer):
     Serialize the model Label
     '''
 
-    issues = IssueSerializer(many=True, read_only=True)
-
     class Meta:
         model = Label
         fields = (
-                'name', 'color', 'issues',
+            'name', 'color',
         )
 
 
@@ -57,8 +55,8 @@ class MilestoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Milestone
         fields = (
-                'github_id', 'number', 'state', 'title', 'description', 'html_url', 'created_at',
-                'close_at', 'update_at', 'due_on', 'project', 'creator', 'sender', 'issues',
+            'github_id', 'number', 'state', 'title', 'description', 'html_url', 'created_at',
+            'close_at', 'update_at', 'due_on', 'project', 'creator', 'sender', 'issues',
         )
 
 
@@ -67,13 +65,18 @@ class ProjectSerializer(serializers.ModelSerializer):
     Serialize the model Projects
     '''
 
-    milestones = MilestoneSerializer(many=True, read_only=True)
+    milestones = serializers.SerializerMethodField('get_milestone')
 
     class Meta:
         model = Project
         fields = (
-                'id', 'github_id', 'name', 'description', 'html_url', 'created_at', 'milestones',
+            'id', 'github_id', 'name', 'description', 'html_url', 'created_at', 'milestones',
         )
+
+    def get_milestone(self, project):
+        milestones = Milestone.objects.filter(issues__sender=project.developer_id)
+        serializer = MilestoneSerializer(instance=milestones, many=True)
+        return serializer.data
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
@@ -86,7 +89,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organization
         fields = (
-                'github_id', 'name', 'description', 'html_url', 'avatar_url', 'projects',
+            'github_id', 'name', 'description', 'html_url', 'avatar_url', 'projects',
         )
 
 
@@ -96,13 +99,30 @@ class DeveloperSerializer(serializers.ModelSerializer):
     '''
 
     configs = ConfigSerializer(many=True, read_only=True)
-    organization = OrganizationSerializer(many=True, read_only=True)
+    issues_closed = serializers.IntegerField(read_only=True)
+    issues_open = serializers.IntegerField(read_only=True)
+    issues_progress = serializers.IntegerField(read_only=True)
+    milestone_open = serializers.IntegerField(read_only=True)
+    milestone_percent = serializers.IntegerField(read_only=True)
+    projects = serializers.SerializerMethodField('get_project')
 
     class Meta:
         model = Developer
         fields = (
-            'configs', 'avatar_url', 'github_login', 'github_id', 'organization',
+            'configs', 'avatar_url', 'github_login', 'github_id', 'issues_closed', 'issues_open', 'issues_progress',
+            'milestone_open', 'milestone_percent', 'projects',
         )
+
+    def get_milestone(self, developer):
+        milestones = Milestone.objects.filter(issues__sender=developer.pk)
+        return milestones
+
+    def get_project(self, developer):
+        projects = Project.objects.filter(
+            milestones__in=self.get_milestone(developer)).extra(
+            select={'developer_id': developer.pk})
+        serializer = ProjectSerializer(instance=projects, many=True)
+        return serializer.data
 
 
 class ManagerSerializer(serializers.ModelSerializer):
@@ -113,7 +133,7 @@ class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manager
         fields = (
-                 'name', 'email',
+            'name', 'email',
         )
 
 
