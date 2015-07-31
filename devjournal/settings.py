@@ -100,7 +100,6 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-spec',
     '--spec-color',
-    '--with-coverage',
 ]
 
 if DEBUG:
