@@ -55,7 +55,7 @@ def organization_builder(json_object):
     return Organization.objects.create(
         github_id=json_object.get('id'),
         name=json_object.get('login'),
-            description=json_object.get('description'),
+        description=json_object.get('description'),
         html_url=json_object.get('url'),
         avatar_url=json_object.get('avatar_url')
     )
@@ -105,10 +105,7 @@ def developer_builder(json_object):
 
 def milestone_builder(json_object, project):
     creator = developer_builder(json_object['creator'])
-
-    milestone = Milestone.objects.filter(
-        github_id=json_object['id'],
-    ).last()
+    milestone = Milestone.objects.filter(github_id=json_object['id'],).last()
 
     if not milestone:
         return Milestone.objects.create(
