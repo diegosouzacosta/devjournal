@@ -24,11 +24,14 @@ class IssueSerializer(serializers.ModelSerializer):
     Serialize the model Issue
     '''
 
+    label_name = serializers.ReadOnlyField(source='label.name')
+    label_color = serializers.ReadOnlyField(source='label.color')
+
     class Meta:
         model = Issue
         fields = (
-            'github_id', 'number', 'state', 'title', 'body', 'html_url', 'created_at', 'close_at', 'update_at',
-            'due_on', 'project', 'milestone', 'label', 'creator', 'sender', 'assignee',
+            'github_id', 'number', 'state', 'title', 'body', 'html_url', 'created_at', 'closed_at', 'updated_at',
+            'due_on', 'project', 'milestone', 'label_name', 'label_color', 'creator', 'sender', 'assignee',
             'closed_by'
         )
 
@@ -56,7 +59,7 @@ class MilestoneSerializer(serializers.ModelSerializer):
         model = Milestone
         fields = (
             'github_id', 'number', 'state', 'title', 'description', 'html_url', 'created_at',
-            'close_at', 'update_at', 'due_on', 'project', 'creator', 'sender', 'issues',
+            'closed_at', 'updated_at', 'due_on', 'project', 'creator', 'issues',
         )
 
 

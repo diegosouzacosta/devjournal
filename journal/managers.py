@@ -15,8 +15,8 @@ class DeveloperQuerySet(models.QuerySet):
             issues_closed=Count(
                 Case(
                     When(
-                        organization__projects__milestones__issues__close_at__gte=date_start,
-                        organization__projects__milestones__issues__close_at__lte=date_end,
+                        organization__projects__milestones__issues__closed_at__gte=date_start,
+                        organization__projects__milestones__issues__closed_at__lte=date_end,
                         then=1,
                     )
                 ),
@@ -64,8 +64,8 @@ class DeveloperManager(models.Manager):
 
     def get_values_daily(self, date_start, date_end, organization):
         return self.get_queryset().filter(
-            organization__projects__milestones__issues__update_at__gte=date_start,
-            organization__projects__milestones__issues__update_at__lte=date_end,
+            organization__projects__milestones__issues__updated_at__gte=date_start,
+            organization__projects__milestones__issues__updated_at__lte=date_end,
             organization__projects__milestones__issues__sender=F('pk'),
             organization=organization,
         ).get_extras_daily(date_start, date_end)
