@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from journal.models import Organization, Label
+from journal.models import Developer, Organization, Label
 
 
 ISSUE = 'issue'
@@ -15,30 +15,28 @@ def issue_builder(json_object):
     pass
 
 
-def label_builder(json_object):
+def label_builder(json_object, project):
     name = json_object['name']
     color = json_object['color']
 
-    label = Label.objects.get_or_create(
+    label, __ = Label.objects.get_or_create(
         name=name,
+        project=project,
         defaults={'color': color},
     )
 
-    return label_create_if_changed(label, json_object)
+    return label_create_if_changed(label, json_object, project)
 
 
-def label_create_if_changed(label, json_object):
+def label_create_if_changed(label, json_object, project):
     if label.color != json_object['color']:
         return Label.objects.create(
             name=json_object['name'],
+            project=project,
             color=json_object['color'],
         )
 
     return label
-
-
-def label_create_if_not_exists(json_object):
-    pass
 
 
 def organization_builder(json_object):
@@ -46,11 +44,11 @@ def organization_builder(json_object):
     organization = Organization.objects.filter(github_id=github_id).first()
 
     if organization:
-        organization.github_id=json_object.get('id')
-        organization.name=json_object.get('login')
-        organization.description=json_object.get('description')
-        organization.html_url=json_object.get('url')
-        organization.avatar_url=json_object.get('avatar_url')
+        organization.github_id = json_object.get('id')
+        organization.name = json_object.get('login')
+        organization.description = json_object.get('description')
+        organization.html_url = json_object.get('url')
+        organization.avatar_url = json_object.get('avatar_url')
         organization.save()
         return organization
 
@@ -61,3 +59,17 @@ def organization_builder(json_object):
         html_url=json_object.get('url'),
         avatar_url=json_object.get('avatar_url')
     )
+
+
+def developer_builder(json_object):
+    developer, __ = Developer.objects.get_or_create(
+        github_id=json_object['id'],
+        defaults={
+            'avatar_url': json_object['avatar_url'],
+            'github_login': json_object['github_login'],
+        }
+    )
+
+    if developer.avatar_url != json_object['avatar_url']:
+        developer.avatar_url = json_object['avatar_url']
+        developer.save()
