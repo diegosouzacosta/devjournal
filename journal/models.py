@@ -2,24 +2,27 @@
 # vim: ts=4 sts=4 sw=4 et:
 
 from django.db import models
-
 from journal.managers import DeveloperManager
 
 
 class Organization(models.Model):
 
     github_id = models.IntegerField(verbose_name=u'ID GitHub', unique=True)
-    name = models.TextField()
+    name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    html_url = models.TextField(null=True, blank=True)
-    avatar_url = models.TextField(null=True, blank=True)
+    html_url = models.CharField(null=True, blank=True, max_length=200)
+    avatar_url = models.TextField(null=True, blank=True, max_length=200)
 
 
 class JournalUser(models.Model):
 
     name = models.CharField(unique=True, max_length=150)
     email = models.EmailField(unique=True)
-    organization = models.ForeignKey(Organization, related_name=u'%(app_label)s_%(class)s')
+    organization = models.ManyToManyField(
+        Organization,
+        related_name=u'%(app_label)s_%(class)s',
+        db_column=u'user_organization'
+    )
 
     class Meta:
         abstract = True
