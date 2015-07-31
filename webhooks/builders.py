@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from devjournal.models import Label
+from journal.models import Organization
 
 
 ISSUE = 'issue'
@@ -38,3 +39,26 @@ def label_create_if_changed(label, json_object):
 
 
 def label_create_if_not_exists(json_object):
+    pass
+
+
+def organization_builder(json_object):
+    github_id = json_object.get('id')
+    organization = Organization.objects.filter(github_id=github_id).first()
+
+    if organization:
+        organization.github_id=json_object.get('id')
+        organization.name=json_object.get('login')
+        organization.description=json_object.get('description')
+        organization.html_url=json_object.get('url')
+        organization.avatar_url=json_object.get('avatar_url')
+        organization.save()
+        return organization
+
+    return Organization.objects.create(
+        github_id=json_object.get('id'),
+        name=json_object.get('login'),
+        description=json_object.get('description'),
+        html_url=json_object.get('url'),
+        avatar_url=json_object.get('avatar_url')
+    )

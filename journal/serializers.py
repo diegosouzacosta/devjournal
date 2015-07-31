@@ -94,7 +94,7 @@ class DeveloperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Developer
         fields = (
-                 'name', 'email', 'avatar_url', 'github_id', 'github_login', 'projects',
+                 'avatar_url', 'projects',
                  'creator_milestones', 'sender_milestones', 'creator_issues', 'sender_issues',
                  'assignee_issues', 'closedby_issues',
         )
@@ -115,7 +115,7 @@ class ManagerSerializer(serializers.ModelSerializer):
 class OrganizationSerializer(serializers.ModelSerializer):
     '''
     Sejhrialize the model Organization
-    dkjfhadqq'''
+    '''
 
     projects = ProjectSerializer(many=True, read_only=True)
 
