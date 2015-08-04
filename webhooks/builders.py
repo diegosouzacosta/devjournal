@@ -3,12 +3,12 @@
 from journal.models import Developer, Organization, Label, Project, Milestone, Issue
 
 
-ISSUE = 'issue'
+ISSUE = ['issues', 'issue_comment']
 
 
 def builder(github_event, json_object):
-    if github_event == ISSUE:
-        issue_builder(json_object)
+    if github_event in ISSUE:
+        return issue_builder(json_object)
 
 
 def issue_builder(json_object, milestone, developer):

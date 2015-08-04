@@ -21,5 +21,6 @@ class ReceiveRequestsView(APIView):
     '''
     def post(self, request, format=None):
         github_event = request.META.get('X-GitHub-Event')
-        builder(github_event, request.data)
-        return Response({}, status=status.HTTP_201_CREATED)
+        if builder(github_event, request.data):
+            return Response({}, status=status.HTTP_201_CREATED)
+        return Response({}, status=status.HTTP_500_INTERNAL_SERVER_ERRO)
