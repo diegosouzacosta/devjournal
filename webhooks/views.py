@@ -20,7 +20,7 @@ class ReceiveRequestsView(APIView):
     Endpoint to receive github requests.
     '''
     def post(self, request, format=None):
-        github_event = request.META.get('X-GitHub-Event')
+        github_event = request.META.get('HTTP_X_GITHUB_EVENT')
         if builder(github_event, request.data):
             return Response({}, status=status.HTTP_201_CREATED)
         return Response({}, status=status.HTTP_500_INTERNAL_SERVER_ERRO)
