@@ -12,7 +12,7 @@ def builder(github_event, json_object):
 
 
 def issue_builder(json_object):
-    creator = developer_builder(json_object['creator'])
+    creator = developer_builder(json_object['sender'])
     assignee = developer_builder(json_object['assignee'])
     milestone = milestone_builder(json_object['milestone'])
 
