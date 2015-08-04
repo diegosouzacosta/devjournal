@@ -103,6 +103,8 @@ def project_builder(json_object, organization):
 
 
 def developer_builder(json_object):
+    if not json_object:
+        return None
     github_id = json_object['id']
     avatar_url = json_object['avatar_url']
     github_login = json_object['login']
