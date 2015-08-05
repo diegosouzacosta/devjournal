@@ -50,7 +50,7 @@ class Project(models.Model):
     html_url = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField()
     creator = models.ForeignKey(Developer, related_name=u'projects')
-    organization = models.ForeignKey(Organization, related_name=u'projects')
+    organization = models.ForeignKey(Organization, related_name=u'projects', null=True, blank=True)
     objects = ProjectManager()
 
     def __str__(self):
@@ -97,7 +97,7 @@ class Issue(models.Model):
     updated_at = models.DateTimeField()
     due_on = models.DateTimeField(null=True, blank=True)
     project = models.ForeignKey(Project, related_name=u'issues')
-    milestone = models.ForeignKey(Milestone, related_name=u'issues')
+    milestone = models.ForeignKey(Milestone, related_name=u'issues', null=True, blank=True)
     label = models.ForeignKey(Label, related_name=u'issues', null=True, blank=True)
     creator = models.ForeignKey(Developer, related_name=u'creator_issues')
     sender = models.ForeignKey(Developer, null=True, blank=True, related_name='sender_issues')
