@@ -7,7 +7,6 @@ from journal.views import JournalDailyViewSet, JournalWeeklyViewSet
 
 urlpatterns = patterns(
     'journal.views',
-    url(r'^daily/$', JournalDailyViewSet.as_view()),
-    url(r'^weekly/$', JournalWeeklyViewSet.as_view()),
-
+    url(r'^daily/$', JournalDailyViewSet.as_view(), name='daily'),
+    url(r'^weekly/$', JournalWeeklyViewSet.as_view(), name='weekly'),
 )

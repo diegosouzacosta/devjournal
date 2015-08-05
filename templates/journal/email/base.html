@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DevJournal - Daily News</title>
+    <meta name="viewport" content="width=device-width" />
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #F8F4F4;">
+    <div style="margin: 0; padding: 20px 0;">
+      <div style="margin: 0 auto;  background-color: #FFF; width: 600px;" width="600">
+        <!-- start of: Header-->
+        <h1 style="margin: 0; padding: 10px; text-align: left; font-family: Georgia, Arial; border-bottom: 1px solid #D5D5D5;">
+          <img src="http://icons.iconarchive.com/icons/iconsmind/outline/128/Newspaper-icon.png" width="35" height="35" style="float: left; padding-right: 10px;"/>
+          {% block title %}{% endblock title %}
+        </h1>
+        <!-- end of: Header -->
+
+        {% block content %}{%endblock content %}
+      </div>
+    </div>
+  </body>
+</html>

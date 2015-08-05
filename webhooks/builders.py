@@ -3,22 +3,26 @@
 from journal.models import Developer, Organization, Label, Project, Milestone, Issue
 
 
-ISSUE = 'issue'
+ISSUE = ['issues']
 
 
 def builder(github_event, json_object):
-    if github_event == ISSUE:
-        issue_builder(json_object)
+    if github_event in ISSUE:
+        return issue_builder(json_object)
 
 
-def issue_builder(json_object, milestone, developer):
-    creator = developer_builder(json_object['creator'])
+def issue_builder(json_object):
+    sender = developer_builder(json_object['sender'])
+    action = json_object['action']
+    project = project_builder(json_object['repository'])
+    json_object = json_object['issue']
     assignee = developer_builder(json_object['assignee'])
-    milestone = milestone_builder(json_object['milestone'])
+    milestone = milestone_builder(json_object['milestone'], project, sender)
 
     return Issue.objects.create(
         github_id=json_object['id'],
         number=json_object['number'],
+        action=action,
         html_url=json_object['html_url'],
         closed_at=json_object['closed_at'],
         created_at=json_object['created_at'],
@@ -26,13 +30,17 @@ def issue_builder(json_object, milestone, developer):
         title=json_object['title'],
         body=json_object['body'],
         state=json_object['state'],
-        creator=creator,
+        creator=developer_builder(json_object['user']),
         assignee=assignee,
         milestone=milestone,
+        project=project,
     )
 
 
 def label_builder(json_object, project):
+    if not json_object:
+        return
+
     name = json_object['name']
     color = json_object['color']
 
@@ -74,7 +82,7 @@ def organization_builder(json_object):
     )
 
 
-def project_builder(json_object, organization):
+def project_builder(json_object, organization=None):
     github_id = json_object.get('id')
     project = Project.objects.filter(github_id=github_id).first()
 
@@ -103,6 +111,8 @@ def project_builder(json_object, organization):
 
 
 def developer_builder(json_object):
+    if not json_object:
+        return None
     github_id = json_object['id']
     avatar_url = json_object['avatar_url']
     github_login = json_object['login']
@@ -125,6 +135,9 @@ def developer_builder(json_object):
 
 
 def milestone_builder(json_object, project, developer):
+    if not json_object:
+        return
+
     creator = developer_builder(json_object['creator'])
     milestone = Milestone.objects.filter(github_id=json_object['id'],).last()
 

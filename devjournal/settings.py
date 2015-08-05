@@ -33,6 +33,8 @@ SECRET_KEY = decouple('SECRET_KEY')
 
 VERSION = '0.0.1'
 
+PROJECT_ROOT = path.abspath(path.join(path.dirname(__file__), '../'))
+
 ALLOWED_HOSTS = ['*']
 WSGI_APPLICATION = 'devjournal.wsgi.application'
 ROOT_URLCONF = 'devjournal.urls'
@@ -75,7 +77,9 @@ REST_FRAMEWORK = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            path.join(PROJECT_ROOT, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -222,3 +226,11 @@ if DEBUG:
         'handlers': [],
         'propagate': False,
     }
+
+API_SERVER = decouple('API_SERVER', default='http://localhost:8000')
+
+EMAIL_USE_TLS = decouple('EMAIL_USE_TLS', default='')
+EMAIL_HOST = decouple('EMAIL_HOST', default='')
+EMAIL_HOST_USER = decouple('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = decouple('EMAIL_HOST_PASSWORD', default='')
+EMAIL_PORT = decouple('EMAIL_PORT', default='')

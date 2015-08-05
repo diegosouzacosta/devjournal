@@ -1,0 +1,106 @@
+{% extends "journal/email/base.html" %}
+
+{% block title %}DevJournal - Axado{% endblock title %}
+
+{% block content %}
+  <!-- start of: Content -->
+  <table style="padding: 10px;" width="600">
+    {% for user in results %}
+      <!-- start of: User data -->
+      <tr>
+        <td width="50">
+          <table>
+            <tr>
+              <td style="margin: 0; padding-right: 10px;">
+                <img src="{{ user.avatar_url }}" width="50" height="50" style="margin: 0; outline: 1px solid #ccc; padding: 2px;" />
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- start of: Container Projects -->
+        {% for project in user.projects %}
+          <td>
+            <!-- start of: Project -->
+            <table style="margin: 0; padding-left: 15px; border-left: 1px solid #ccc; padding-bottom: 20px;">
+              <tr>
+                <td style="width: 480px;" width="480">
+                  <h1 style="margin: 0; border-bottom: 1px solid #D5D5D5;">
+                    <table>
+                      <tr>
+                        <td><img src="https://s3-sa-east-1.amazonaws.com/static.axado.com.br/devjournal/github-icon-repo.png" width="25" height="25" style="margin: 0; padding-top: 11px;"/></td>
+                        <td style="font-family: Georgia, Arial; font-size: 25px;">{{ project.name }}</td>
+                      </tr>
+                    </table>
+                  </h1>
+                </td>
+              </tr>
+
+              <!-- start of: Milestone -->
+              {% for milestone in project.milestones %}
+                <tr>
+                  <td style="padding-top: 10px; width: 480px;" width="480">
+                    <h4 style="margin: 0; padding-left: 5px;">
+                      <table>
+                        <tr>
+                          <td><img src="https://s3-sa-east-1.amazonaws.com/static.axado.com.br/devjournal/github-icon-milestone.png" width="16" height="16" style="margin: 0;"/></td>
+                          <td style="font-family: Georgia, Arial" width="300">{{ milestone.title }}</td>
+
+                          <td style="text-align: right; font-size: 12px;" width="70"></td>
+                          <td style="text-align: right; font-size: 13px;" width="70">
+                            {% if milestone.due_on %}
+                              {{ milestone.due_on|date:"d/m/Y" }}
+                            {% else %}
+                              -
+                            {% endif %}
+                          </td>
+                        </tr>
+                      </table>
+                    </h4>
+                  </td>
+                </tr>
+
+                <tr>
+                  <!-- start of: Milestone Events -->
+                  <td style="width: 480px;" width="480">
+                    <table style="margin: 0; padding-left: 10px;">
+                      <!-- start of: Issue -->
+                      {% for issue in milestone.issues %}
+                        <tr>
+                          <td style="color: #FFF; font-family: Georgia, Arial; font-size: 9px; font-weight: bold; text-align: center; background-color: {{ issue.label_color }}; padding: 4px;">{{ issue.label_name }}</td>
+                          <td style="font-family: Georgia, Arial; font-size: 14px; padding-left: 5px;" width="350">{{ issue.title }}</td>
+                          <td><a href="{{ issue.html_url }}" style="color: #4078C0; text-decoration: none; font-family: Georgia, Arial">#{{ issue.number }}</a></td>
+                        </tr>
+                      {% endfor %}
+                      <!-- end of: Issue -->
+                    </table>
+                  </td>
+                  <!-- end of: Milestone Events -->
+                </tr>
+              {% endfor %}
+              <!-- end of: Milestone -->
+            </table>
+            <!-- end of: Project -->
+          </td>
+        {% empty %}
+          <td>
+            <!-- start of: Project -->
+            <table style="margin: 0; padding-left: 15px; border-left: 1px solid #ccc;">
+              <tr>
+                <td style="width: 385px; padding: 50px 10px;" width="400">
+                  <p style="font-family: Georgia, Arial; font-size: 18px;">
+                    Nenhuma novidade hoje!
+                  </p>
+                </td>
+              </tr>
+            </table>
+            <!-- end of: Project -->
+          </td>
+        {% endfor %}
+        <!-- end of: Container Projects -->
+      </tr>
+      <!-- end of: User data -->
+    {% endfor %}
+  </table>
+  <!-- end of: Content -->
+{% endblock content %}

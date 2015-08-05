@@ -1,0 +1,58 @@
+{% extends "journal/email/base.html" %}
+
+{% block title %}DevJournal - Axado{% endblock title %}
+
+{% block content %}
+  <!-- start of: Content -->
+  <table style="padding: 10px;" width="600">
+    <!-- start of: User data -->
+    <tr>
+      <!-- start of: Container Projects -->
+      <td>
+        <!-- start of: Project -->
+        <table style="margin: 0; padding-left: 15px; padding-bottom: 20px;">
+          <tr>
+            <td style="width: 480px;" width="480">
+              <h1 style="margin: 0; border-bottom: 1px solid #D5D5D5;">
+                <table>
+                  <tr>
+                    <td><img src="./github-icon-repo.png" width="25" height="25" style="margin: 0; padding-top: 11px;"/></td>
+                    <td style="font-family: Georgia, Arial; font-size: 25px;">Oca</td>
+                  </tr>
+                </table>
+              </h1>
+            </td>
+          </tr>
+
+          <tr>
+            <!-- start of: Milestone -->
+            <td style="padding-top: 10px;" width="550">
+              <table>
+                <tr>
+                  <td><img src="./github-icon-milestone.png" width="16" height="16" style="margin: 0;"/></td>
+                  <td style="margin: 0; padding-left: 5px;" width="300">Migração para Authentication</td>
+
+                  <td style="text-align: right; font-size: 12px;"><span style="color: red;">40</span>/<span style="color: green;">100</span></td>
+                  <td style="font-size: 14px; text-align: center;" width="150">Fecha em <span style="color: green;">3 dias</span></td>
+                  <td style="text-align: right; font-size: 13px;">30/10/2015</td>
+                </tr>
+                <tr>
+                  <td><img src="./github-icon-milestone.png" width="16" height="16" style="margin: 0;"/></td>
+                  <td style="margin: 0; padding-left: 5px;" width="300">Migração para Authentication</td>
+
+                  <td style="text-align: right; font-size: 12px;"><span style="color: green;">100</span>/<span style="color: green;">100</span></td>
+                  <td style="font-size: 14px; text-align: center;" width="150"><span style="color: green;">Concluída</span></td>
+                  <td style="text-align: right; font-size: 13px;">-</td>
+                </tr>
+              </table>
+            </td>
+            <!-- end of: Milestone -->
+          </tr>
+        </table>
+        <!-- end of: Project -->
+      </td>
+      <!-- end of: Container Projects -->
+    </tr>
+  </table>
+  <!-- end of: Content -->
+{% endblock content %}
