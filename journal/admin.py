@@ -12,7 +12,7 @@ class ConfigAdmin(admin.ModelAdmin):
 
 
 class DeveloperAdmin(admin.ModelAdmin):
-    list_display = ('name', 'github_id', 'github_login', 'email',)
+    list_display = ('name', 'github_id', 'github_login')
     list_filter = ('name',)
     search_fields = ('name', 'github_login',)
 

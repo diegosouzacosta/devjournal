@@ -14,10 +14,12 @@ def builder(github_event, json_object):
 def issue_builder(json_object):
     sender = developer_builder(json_object['sender'])
     action = json_object['action']
-    project = project_builder(json_object['repository'])
+    organization = organization_builder(json_object['organization'])
+    project = project_builder(json_object['repository'], organization)
     json_object = json_object['issue']
     assignee = developer_builder(json_object['assignee'])
     milestone = milestone_builder(json_object['milestone'], project, sender)
+    label_builder(json_object['labels'])
 
     return Issue.objects.create(
         github_id=json_object['id'],
@@ -61,6 +63,8 @@ def label_builder(json_object, project):
 
 
 def organization_builder(json_object):
+    if not json_object:
+        return
     github_id = json_object.get('id')
     organization = Organization.objects.filter(github_id=github_id).first()
 
@@ -113,6 +117,7 @@ def project_builder(json_object, organization=None):
 def developer_builder(json_object):
     if not json_object:
         return None
+
     github_id = json_object['id']
     avatar_url = json_object['avatar_url']
     github_login = json_object['login']
@@ -124,7 +129,6 @@ def developer_builder(json_object):
             github_id=github_id,
             avatar_url=avatar_url,
             github_login=github_login,
-
         )
 
     developer.avatar_url = avatar_url
