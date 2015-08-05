@@ -45,6 +45,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,6 +58,9 @@ INSTALLED_APPS = (
     'webhooks',
 )
 
+TEMPLATE_CONTEXT_PROCESSOR = (
+    'django.core.context_processors.request',
+)
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
