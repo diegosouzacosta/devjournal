@@ -12,6 +12,9 @@ class Organization(models.Model):
     html_url = models.CharField(null=True, blank=True, max_length=200)
     avatar_url = models.TextField(null=True, blank=True, max_length=200)
 
+    def __str__(self):
+        return self.name
+
 
 class JournalUser(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -24,6 +27,9 @@ class JournalUser(models.Model):
 
     class Meta:
         abstract = True
+
+    def __str__(self):
+        return self.name
 
 
 class Manager(JournalUser):
@@ -47,6 +53,9 @@ class Project(models.Model):
     organization = models.ForeignKey(Organization, related_name=u'projects')
     objects = ProjectManager()
 
+    def __str__(self):
+        return self.name
+
 
 class Milestone(models.Model):
     github_id = models.IntegerField(verbose_name=u'ID GitHub')
@@ -62,11 +71,17 @@ class Milestone(models.Model):
     project = models.ForeignKey(Project, related_name=u'milestones')
     creator = models.ForeignKey(Developer, related_name=u'creator_milestones')
 
+    def __str__(self):
+        return self.title
+
 
 class Label(models.Model):
     name = models.TextField()
     color = models.CharField(max_length=10, null=True, blank=True)
     project = models.ForeignKey(Project, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
 
 
 class Issue(models.Model):
@@ -83,11 +98,14 @@ class Issue(models.Model):
     due_on = models.DateTimeField(null=True, blank=True)
     project = models.ForeignKey(Project, related_name=u'issues')
     milestone = models.ForeignKey(Milestone, related_name=u'issues')
-    label = models.ForeignKey(Label, related_name=u'issues')
+    label = models.ForeignKey(Label, related_name=u'issues', null=True, blank=True)
     creator = models.ForeignKey(Developer, related_name=u'creator_issues')
     sender = models.ForeignKey(Developer, null=True, blank=True, related_name='sender_issues')
     assignee = models.ForeignKey(Developer, null=True, blank=True, related_name=u'assignee_issues')
     closed_by = models.ForeignKey(Developer, null=True, blank=True, related_name=u'closedby_issues')
+
+    def __str__(self):
+        return self.title
 
 
 class Config(models.Model):
@@ -95,3 +113,6 @@ class Config(models.Model):
     manager = models.ForeignKey(Manager)
     weekly = models.BooleanField(default=True)
     daily = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = u'Configuration'
