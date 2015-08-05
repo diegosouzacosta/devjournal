@@ -17,7 +17,8 @@ class Organization(models.Model):
 
 
 class JournalUser(models.Model):
-    name = models.CharField(unique=True, max_length=150)
+    name = models.CharField(max_length=150)
+    email = models.CharField(max_length=150)
     organization = models.ManyToManyField(
         Organization,
         related_name=u'%(app_label)s_%(class)s',
