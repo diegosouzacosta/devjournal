@@ -19,7 +19,7 @@ def issue_builder(json_object):
     json_object = json_object['issue']
     assignee = developer_builder(json_object['assignee'])
     milestone = milestone_builder(json_object['milestone'], project, sender)
-    label_builder(json_object['labels'])
+    label_builder(json_object['labels'], project)
 
     return Issue.objects.create(
         github_id=json_object['id'],
