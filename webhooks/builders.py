@@ -45,8 +45,8 @@ def label_builder(json_object, project):
 
     label_list = []
     for label in json_object:
-        name = json_object['name']
-        color = json_object['color']
+        name = label['name']
+        color = label['color']
 
         label = Label.objects.filter(name=name, project=project).last()
 
@@ -58,7 +58,7 @@ def label_builder(json_object, project):
             )
 
         if label.color != color:
-            label.color = json_object['color']
+            label.color = label['color']
             label.save()
 
         label_list.append(label)
