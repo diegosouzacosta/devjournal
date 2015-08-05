@@ -43,23 +43,27 @@ def label_builder(json_object, project):
     if not json_object:
         return
 
-    name = json_object['name']
-    color = json_object['color']
+    label_list = []
+    for label in json_object:
+        name = json_object['name']
+        color = json_object['color']
 
-    label = Label.objects.filter(name=name, project=project).last()
+        label = Label.objects.filter(name=name, project=project).last()
 
-    if not label:
-        return Label.objects.create(
-            name=name,
-            color=color,
-            project=project,
-        )
+        if not label:
+            return Label.objects.create(
+                name=name,
+                color=color,
+                project=project,
+            )
 
-    if label.color != color:
-        label.color = json_object['color']
-        label.save()
+        if label.color != color:
+            label.color = json_object['color']
+            label.save()
 
-    return label
+        label_list.append(label)
+
+    return label_list
 
 
 def organization_builder(json_object):
